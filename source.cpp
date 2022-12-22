@@ -13,6 +13,8 @@ struct node *insertFront(struct node *, int );
 struct node *insertBack(struct node *, int );
 void insertAfter(struct node* , int );
 void display(struct node *);
+int countLength(struct node* );
+int sumElements(struct node* );
 
 int main(){
 /*
@@ -40,6 +42,8 @@ Write a main function to perform each of the following;
     display(header);
     insertAfter(header->next, 5);
     display(header);
+    cout << "Length of the LL is " << countLength(header) << endl;
+    cout << "Sum of the elements of the LL is " << sumElements(header) << endl;
 
     system("PAUSE");
     return 0;
@@ -111,4 +115,24 @@ void display(struct node *header){
         temp = temp->next;
     }
     cout << endl;
+}
+
+int countLength(struct node* header){
+    struct node* temp = header;
+    int count = 0;
+    while(temp != NULL){
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
+
+int sumElements(struct node* header){
+    struct node* temp = header;
+    int sum = 0;
+    while(temp != NULL){
+        sum += temp->data;
+        temp = temp->next;
+    }
+    return sum;
 }
