@@ -11,6 +11,7 @@ struct node* createNode(int );
 int isEmpty(struct node *);
 struct node *insertFront(struct node *, int );
 struct node *insertBack(struct node *, int );
+void insertAfter(struct node* , int );
 
 int main(){
 
@@ -18,7 +19,8 @@ int main(){
     
     header = createNode(5);
     header->next = createNode(6);
-    header = insertBack(header, 7);
+    // header = insertBack(header, 7);
+    insertAfter(header, 7);
 
     system("PAUSE");
     return 0;
@@ -69,4 +71,13 @@ struct node *insertBack(struct node *header, int data){
     //4. return header
     return header;
     
+}
+
+void insertAfter(struct node* afterNode, int data){
+    //1. create node
+    struct node* temp = createNode(data);
+    //2. connect new node after the afternode
+    temp->next = afterNode->next;
+    //3. change the afternode pointer value 
+    afterNode->next = temp;
 }
