@@ -15,13 +15,30 @@ void insertAfter(struct node* , int );
 void display(struct node *);
 
 int main(){
-
+/*
+Write a main function to perform each of the following;
+1.Create a LL
+2.Insert element 1 to the front of the LL.
+3.Display the LL
+4.Insert element 2 to the back of the LL.
+5.Display the LL
+6.Insert element 3 to the back of the LL.
+7.Display the LL
+8.Insert element 4 to the front of the LL.
+9.Display the LL
+10.Insert element 5 to after the 2nd element of the LL.
+11.Display the LL.
+*/
     struct node *header = NULL;
-    
-    header = createNode(5);
-    header->next = createNode(6);
-    // header = insertBack(header, 7);
-    insertAfter(header, 7);
+    header = insertFront(header, 1);
+    display(header);
+    header = insertBack(header, 2);
+    display(header);
+    header = insertBack(header, 3);
+    display(header);
+    header = insertFront(header, 4);
+    display(header);
+    insertAfter(header->next, 5);
     display(header);
 
     system("PAUSE");
