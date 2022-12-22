@@ -8,18 +8,13 @@ struct node{
 };
 
 struct node* createNode(int );
+int isEmpty(struct node *);
 
 int main(){
 
     struct node *header = NULL;
-    header = createNode(52);
-    header->next = createNode(48); 
-
-    cout << header << endl;
-    cout << header->data << endl;
-    cout << header->next << endl;
-    cout << header->next->data << endl;
-    cout << header->next->next << endl;
+    
+    (isEmpty(header)) ? cout << "Linked list is empty!" << endl : cout << "Linked list is not empty!" << endl;
 
     system("PAUSE");
     return 0;
@@ -36,4 +31,8 @@ struct node* createNode(int item){
     temp->next = NULL;
     //5. return newly created node.
     return temp;
+}
+
+int isEmpty(struct node *header){
+    return (header == NULL) ? 1 : 0;
 }
