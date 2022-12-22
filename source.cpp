@@ -12,6 +12,7 @@ int isEmpty(struct node *);
 struct node *insertFront(struct node *, int );
 struct node *insertBack(struct node *, int );
 void insertAfter(struct node* , int );
+void display(struct node *);
 
 int main(){
 
@@ -21,6 +22,7 @@ int main(){
     header->next = createNode(6);
     // header = insertBack(header, 7);
     insertAfter(header, 7);
+    display(header);
 
     system("PAUSE");
     return 0;
@@ -80,4 +82,16 @@ void insertAfter(struct node* afterNode, int data){
     temp->next = afterNode->next;
     //3. change the afternode pointer value 
     afterNode->next = temp;
+}
+
+void display(struct node *header){
+    if(header == NULL)
+        cout << "List is empty" << endl;
+    struct node* temp = header;
+
+    while(temp != NULL){
+        cout << temp->data << " --> ";
+        temp = temp->next;
+    }
+    cout << endl;
 }
