@@ -4,15 +4,16 @@ using namespace std;
 
 struct node {
     // int data;
-    float data;
+    // float data;
+    char data;
     struct node* next;
 };
 
-struct node* createNode(float);
+struct node* createNode(char);
 int isEmpty(struct node*);
-struct node* insertFront(struct node*, float);
-struct node* insertBack(struct node*, float);
-void insertAfter(struct node*, float);
+struct node* insertFront(struct node*, char);
+struct node* insertBack(struct node*, char);
+void insertAfter(struct node*, char);
 void display(struct node*);
 int countLength(struct node*);
 int sumElements(struct node*);
@@ -49,19 +50,27 @@ int main() {
     // cout << "Length of the LL is " << countLength(header) << endl;
     // cout << "Sum of the elements of the LL is " << sumElements(header) << endl;*/
 
-    struct node* header = NULL;
+    /*struct node* header = NULL;
     header = insertBack(header, 1.5);
     header = insertBack(header, 2.5);
     header = insertBack(header, 3.5);
     header = insertBack(header, 4.5);
 
-    cout << "The average of element of a linked list is: " << averagelist(header) << endl;
+    cout << "The average of element of a linked list is: " << averagelist(header) << endl;*/
+
+    struct node* header = NULL;
+    header = insertBack(header, 'A');
+    header = insertBack(header, 'B');
+    header = insertBack(header, 'A');
+    header = insertBack(header, 'C');
+    header = insertBack(header, 'D');
+    cout << "Number of \'A\': " << countA(header) << endl;
 
     system("PAUSE");
     return 0;
 }
 
-struct node* createNode(float item) {
+struct node* createNode(char item) {
     //1. create a temp node
     struct node* temp;
     //2. allocate memory for node
@@ -78,7 +87,7 @@ int isEmpty(struct node* header) {
     return (header == NULL) ? 1 : 0;
 }
 
-struct node* insertFront(struct node* header, float data) {
+struct node* insertFront(struct node* header, char data) {
     //1. create node
     struct node* temp = createNode(data);
     //2. connect the new node to the front of the list
@@ -89,7 +98,7 @@ struct node* insertFront(struct node* header, float data) {
     return header;
 }
 
-struct node* insertBack(struct node* header, float data) {
+struct node* insertBack(struct node* header, char data) {
     //1. create node
     struct node* temp = createNode(data);
     struct node* headertemp;
@@ -108,7 +117,7 @@ struct node* insertBack(struct node* header, float data) {
 
 }
 
-void insertAfter(struct node* afterNode, int data) {
+void insertAfter(struct node* afterNode, char data) {
     //1. create node
     struct node* temp = createNode(data);
     //2. connect new node after the afternode
