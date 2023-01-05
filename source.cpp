@@ -3,74 +3,52 @@
 using namespace std;
 
 struct node {
-    // int data;
-    // float data;
-    char data;
+     //int data;
+    float data;
     struct node* next;
 };
 
-struct node* createNode(char);
+struct node* createNode(float);
 int isEmpty(struct node*);
-struct node* insertFront(struct node*, char);
-struct node* insertBack(struct node*, char);
-void insertAfter(struct node*, char);
+struct node* insertFront(struct node*, float);
+struct node* insertBack(struct node*, float);
+void insertAfter(struct node*, float);
 void display(struct node*);
 int countLength(struct node*);
-int sumElements(struct node*);
+float sumElements(struct node*);
 
 float averagelist(struct node*);
 int countA(struct node*);
 
+void deleteAfter(struct node* );
+struct node* deleteBack(struct node* );
+struct node* deleteFront(struct node* );
+
+void moveforwardlist(struct node*, struct node*);
+void movebackwardlist(struct node*, struct node*);
+void loadlist(struct node*, float[], int);
+
 int main() {
-    /*
-    Write a main function to perform each of the following;
-    1.Create a LL
-    2.Insert element 1 to the front of the LL.
-    3.Display the LL
-    4.Insert element 2 to the back of the LL.
-    5.Display the LL
-    6.Insert element 3 to the back of the LL.
-    7.Display the LL
-    8.Insert element 4 to the front of the LL.
-    9.Display the LL
-    10.Insert element 5 to after the 2nd element of the LL.
-    11.Display the LL.
-    */
-    /* struct node *header = NULL;
-    // header = insertFront(header, 1);
-    // display(header);
-    // header = insertBack(header, 2);
-    // display(header);
-    // header = insertBack(header, 3);
-    // display(header);
-    // header = insertFront(header, 4);
-    // display(header);
-    // insertAfter(header->next, 5);
-    // display(header);
-    // cout << "Length of the LL is " << countLength(header) << endl;
-    // cout << "Sum of the elements of the LL is " << sumElements(header) << endl;*/
-
-    /*struct node* header = NULL;
-    header = insertBack(header, 1.5);
-    header = insertBack(header, 2.5);
-    header = insertBack(header, 3.5);
-    header = insertBack(header, 4.5);
-
-    cout << "The average of element of a linked list is: " << averagelist(header) << endl;*/
 
     struct node* header = NULL;
-    header = insertBack(header, 'A');
-    header = insertBack(header, 'B');
-    header = insertBack(header, 'A');
-    header = insertBack(header, 'C');
-    header = insertBack(header, 'D');
-    cout << "Number of \'A\': " << countA(header) << endl;
+    float array[] = {1.5, 2.5, 3.5, 4.5, 5.5, 6.5};
+
+   /* header = insertBack(header, 11.5);
+    header = insertBack(header, 12.5);
+    header = insertBack(header, 13.5);*/
+
+    header = insertBack(header, 13.5);
+    //load = insertBack(load, 7.5);
+    loadlist(header, array, 6);
+    //cout << load->data << endl;
+    display(header);
+
 
     system("PAUSE");
     return 0;
 }
 
-struct node* createNode(char item) {
+struct node* createNode(float item) {
     //1. create a temp node
     struct node* temp;
     //2. allocate memory for node
@@ -87,7 +65,7 @@ int isEmpty(struct node* header) {
     return (header == NULL) ? 1 : 0;
 }
 
-struct node* insertFront(struct node* header, char data) {
+struct node* insertFront(struct node* header, float data) {
     //1. create node
     struct node* temp = createNode(data);
     //2. connect the new node to the front of the list
@@ -98,7 +76,7 @@ struct node* insertFront(struct node* header, char data) {
     return header;
 }
 
-struct node* insertBack(struct node* header, char data) {
+struct node* insertBack(struct node* header, float data) {
     //1. create node
     struct node* temp = createNode(data);
     struct node* headertemp;
@@ -117,7 +95,7 @@ struct node* insertBack(struct node* header, char data) {
 
 }
 
-void insertAfter(struct node* afterNode, char data) {
+void insertAfter(struct node* afterNode, float data) {
     //1. create node
     struct node* temp = createNode(data);
     //2. connect new node after the afternode
@@ -126,9 +104,41 @@ void insertAfter(struct node* afterNode, char data) {
     afterNode->next = temp;
 }
 
-void display(struct node* header) {
+struct node* deleteFront(struct node* header) {
+    struct node* temp;
     if (header == NULL)
-        cout << "List is empty" << endl;
+        return header;
+
+    temp = header;
+    header = header->next;
+    free(temp);
+
+    return header;
+}
+
+struct node* deleteBack(struct node* header) {
+    struct node* temp, * headertemp;
+    if (header == NULL)
+        return header;
+    headertemp = header;
+    while (headertemp->next->next != NULL)
+        headertemp = headertemp->next;
+    temp = headertemp->next;
+    headertemp->next = NULL;
+    free(temp);
+    return header;
+}
+
+void deleteAfter(struct node* afterNode) {
+    struct node* temp;
+    if (afterNode->next == NULL || afterNode == NULL)
+        return;
+    temp = afterNode->next;
+    afterNode->next = temp->next;
+    free(temp);
+}
+
+void display(struct node* header) {
     struct node* temp = header;
 
     while (temp != NULL) {
@@ -148,9 +158,9 @@ int countLength(struct node* header) {
     return count;
 }
 
-int sumElements(struct node* header) {
+float sumElements(struct node* header) {
     struct node* temp = header;
-    int sum = 0;
+    float sum = 0;
     while (temp != NULL) {
         sum += temp->data;
         temp = temp->next;
@@ -180,4 +190,22 @@ int countA(struct node* header) {
         temp = temp->next;
     }
     return count;
+}
+
+void loadlist(struct node* header, float arr[], int sz) {
+
+    for (int i = 0; i < sz; i++) {
+        //cout << arr[i] << endl;
+        header = insertBack(header, arr[i]);
+    }
+
+    //display(header);
+}
+
+void moveforwardlist(struct node* header, struct node* move) {
+
+}
+
+void movebackwardlist(struct node* header, struct node* move) {
+
 }
