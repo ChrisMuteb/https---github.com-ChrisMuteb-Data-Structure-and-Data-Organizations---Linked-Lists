@@ -27,6 +27,9 @@ struct node* deleteFront(struct node*);
 struct node* moveforwardlist(struct node*, struct node*);
 struct node* movebackwardlist(struct node*, struct node*);
 struct node* loadlist(struct node*, float[], int);
+struct node* moveforwardlist2(struct node* header, struct node* an);
+struct node* moveforwardlist3(struct node* header, struct node* an);
+struct node* movebackwardlist2(struct node* header, struct node* an);
 
 int main() {
 
@@ -43,7 +46,16 @@ int main() {
     /*header = moveforwardlist(header, header->next);
     display(header);*/
 
-    header = movebackwardlist(header, header->next->next);
+    /*header = moveforwardlist2(header, header->next->next);
+    display(header);*/
+
+    /*header = moveforwardlist3(header, header->next);
+    display(header);*/
+
+    /*header = movebackwardlist(header, header->next->next);
+    display(header);*/
+
+    header = movebackwardlist2(header, header->next->next);
     display(header);
 
 
@@ -53,7 +65,7 @@ int main() {
 
 struct node* createNode(float item) {
     //1. create a temp node
-    struct node* temp;
+    struct node* temp = NULL;
     //2. allocate memory for node
     temp = (struct node*)malloc(sizeof(node));
     //3. assign item to node
@@ -224,6 +236,42 @@ struct node* moveforwardlist(struct node* header, struct node* nodeToMove) {
     return header;
 }
 
+struct node* moveforwardlist2(struct node* header, struct node* an) {
+    struct node* ht = header;
+    //1. Find the node before the afternode
+    while (ht->next != an)
+        ht = ht->next;
+
+    //2. Hold the node after the afternode->next
+    struct node* temp;
+    temp = an->next->next;
+
+    //3. swap
+    ht->next = an->next;
+    an->next = temp;
+    ht->next->next = an;
+
+    return header;
+}
+
+struct node* moveforwardlist3(struct node* header, struct node* an) {
+    struct node* ht = header;
+    //1. Find the node before the afternode
+    while (ht->next != an)
+        ht = ht->next;
+
+    //2. Hold the node after the afternode->next
+    struct node* temp;
+    temp = an->next;
+
+    //3. swap
+    ht->next = temp;
+    an->next = temp->next;
+    temp->next = an;
+
+    return header;
+}
+
 struct node* movebackwardlist(struct node* header, struct node* nodeToMove) {
 
     //1. Find the node before the afternode
@@ -240,5 +288,25 @@ struct node* movebackwardlist(struct node* header, struct node* nodeToMove) {
     temp1->next = temp2;
     header->next->next = temp1;
    
+    return header;
+}
+
+struct node* movebackwardlist2(struct node* header, struct node* an) {
+
+    //1. Find the node before the afternode
+    while (header->next->next != an)
+        header = header->next;
+
+    //2. Hold the node after the afternode->next
+    struct node* temp;
+    temp = header->next;
+
+    
+
+    //3. swap
+    header->next = an;
+    temp->next = an->next;
+    an->next = temp;
+
     return header;
 }
