@@ -3,7 +3,7 @@
 using namespace std;
 
 struct node {
-     //int data;
+    //int data;
     float data;
     struct node* next;
 };
@@ -20,28 +20,31 @@ float sumElements(struct node*);
 float averagelist(struct node*);
 int countA(struct node*);
 
-void deleteAfter(struct node* );
-struct node* deleteBack(struct node* );
-struct node* deleteFront(struct node* );
+void deleteAfter(struct node*);
+struct node* deleteBack(struct node*);
+struct node* deleteFront(struct node*);
 
-void moveforwardlist(struct node*, struct node*);
+struct node* moveforwardlist(struct node*, struct node*);
 void movebackwardlist(struct node*, struct node*);
-void loadlist(struct node*, float[], int);
+struct node* loadlist(struct node*, float[], int);
 
 int main() {
 
     struct node* header = NULL;
-    float array[] = {1.5, 2.5, 3.5, 4.5, 5.5, 6.5};
+    float array[] = { 1.5, 2.5, 3.5, 4.5, 5.5, 6.5 };
 
-   /* header = insertBack(header, 11.5);
-    header = insertBack(header, 12.5);
-    header = insertBack(header, 13.5);*/
+    /* header = insertBack(header, 11.5);
+     header = insertBack(header, 12.5);
+     header = insertBack(header, 13.5);*/
 
-    header = insertBack(header, 13.5);
-    //load = insertBack(load, 7.5);
-    loadlist(header, array, 6);
-    //cout << load->data << endl;
+    header = loadlist(header, array, sizeof(array) / sizeof(array[0]));
     display(header);
+
+    header = moveforwardlist(header, header->next);
+    display(header);
+
+    /*movebackwardlist(header, m);
+    display(header);*/
 
 
     system("PAUSE");
@@ -192,20 +195,47 @@ int countA(struct node* header) {
     return count;
 }
 
-void loadlist(struct node* header, float arr[], int sz) {
-
+struct node* loadlist(struct node* header, float arr[], int sz) {
+    //struct node* temp = NULL;
     for (int i = 0; i < sz; i++) {
+        
         //cout << arr[i] << endl;
         header = insertBack(header, arr[i]);
     }
-
-    //display(header);
+    //header = temp;
+    //display(temp);
+    return header;
 }
 
-void moveforwardlist(struct node* header, struct node* move) {
+struct node* moveforwardlist(struct node* header, struct node* nodeToMove) {
+    //1. Find the node before the afternode
+    while (header->next != nodeToMove)
+        header = header->next;
 
+    //2. Hold the node after the afternode->next
+    struct node* temp;
+    temp = nodeToMove->next->next;
+
+    //3. swap
+    header->next = nodeToMove->next;
+    nodeToMove->next = temp;
+    header->next->next = nodeToMove;
+
+    return header;
 }
 
-void movebackwardlist(struct node* header, struct node* move) {
+void movebackwardlist(struct node* header, struct node* nodeToMove) {
 
+    //1. Find the node before the afternode
+    while (header->next->next != nodeToMove)
+        header = header->next;
+
+    //2. Hold the node after the afternode->next
+    struct node* temp;
+    temp = nodeToMove->next->next;
+
+    //3. swap
+    header->next = nodeToMove->next;
+    nodeToMove->next = temp;
+    header->next->next = nodeToMove;
 }
