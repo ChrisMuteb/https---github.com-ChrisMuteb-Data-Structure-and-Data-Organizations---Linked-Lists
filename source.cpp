@@ -31,6 +31,8 @@ struct node* moveforwardlist2(struct node* header, struct node* an);
 struct node* moveforwardlist3(struct node* header, struct node* an);
 struct node* movebackwardlist2(struct node* header, struct node* an);
 
+struct node* copyList(struct node* );
+
 int main() {
 
     struct node* header = NULL;
@@ -55,7 +57,11 @@ int main() {
     /*header = movebackwardlist(header, header->next->next);
     display(header);*/
 
-    header = movebackwardlist2(header, header->next->next);
+    // header = movebackwardlist2(header, header->next->next);
+    // display(header);
+
+    struct node* destination = copyList(header);
+    display(destination);
     display(header);
 
 
@@ -309,4 +315,14 @@ struct node* movebackwardlist2(struct node* header, struct node* an) {
     an->next = temp;
 
     return header;
+}
+
+struct node* copyList(struct node* source) {
+    struct node* dest = NULL;
+
+    while (source != NULL) {
+        dest = insertBack(dest, source->data);
+        source = source->next;
+    }
+    return dest;
 }
